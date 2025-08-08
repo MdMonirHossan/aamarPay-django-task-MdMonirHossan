@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+
+# Environments
+.env/
+env/
+venv/
+# ENV/
+# env.bak/
+# venv.bak/
+
+# Django stuff
+*.log
+local_settings.py
+# db.sqlite3
+media/
+static_collected/ # If you collect static files into a separate directory
+
+# Editors and OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
+.ropeproject/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Other
+dist/
+build/

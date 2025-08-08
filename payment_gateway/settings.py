@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     # Project Apps
+    'user',
     'payment',
+    'activity_log',
 ]
 
 MIDDLEWARE = [
