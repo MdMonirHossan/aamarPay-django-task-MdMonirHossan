@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,6 +79,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'payment_gateway.wsgi.application'
+
+
+# Config for DRF JWTAuthentication
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Example: 30 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Example: 7 days
+    'ROTATE_REFRESH_TOKENS': True,                   # Optional: Issue a new refresh token on refresh
+    'BLACKLIST_AFTER_ROTATION': True,                # Optional: Blacklist old refresh tokens
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 
 # Database
