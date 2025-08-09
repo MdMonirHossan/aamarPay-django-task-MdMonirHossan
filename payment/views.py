@@ -41,3 +41,7 @@ def payment_success(request):
 def payment_cancel(request):
     context = {}
     return render(request, 'payment_cancel.html', context)
+
+def payment_failed(request):
+    context = {}
+    return render(request, 'payment_failed.html', context)

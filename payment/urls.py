@@ -3,7 +3,8 @@ from .views import (
     FileListView, 
     TransactionListView, 
     payment_success,
-    payment_cancel
+    payment_cancel,
+    payment_failed
 )
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
 
     path('success', payment_success, name='success_page'),
     path('cancel', payment_cancel, name='cancel_page'),
+    path('failed', payment_failed, name='failed_page'),
 ]
