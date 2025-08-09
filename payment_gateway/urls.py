@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Custom/project app path
-    path('api/', include('user.urls')),
+    path('api/user/', include('user.urls')),
     path('api/', include('payment.urls')),
     path('api/', include('activity_log.urls')),
 
