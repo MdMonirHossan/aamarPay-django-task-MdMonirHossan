@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import views, generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -31,3 +32,8 @@ class TransactionListView(generics.ListAPIView):
         Return a queryset of transactions only for the requested user.
         '''
         return PaymentTransaction.objects.filter(user=self.request.user)
+    
+
+def payment_success(request):
+    context = {}
+    return render(request, 'payment_success.html', context)

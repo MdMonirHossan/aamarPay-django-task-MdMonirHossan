@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block stylesheets %}
+<style type="text/css">
+
+    .cancel-icon {
+        font-size: 50px;
+        color: #d9534f;
+        margin-bottom: 20px;
+    }
+
+    .cancel-message {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 10px;
+    }
+
+    .info-text {
+        font-size: 18px;
+        /* color: #555555; */
+        /* margin-bottom: 30px; */
+    }
+
+    .continue-btn {
+        text-decoration: none;
+        background-color: #d9534f;
+        color: #ffffff;
+        padding: 12px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .continue-btn:hover {
+        background-color: #c9302c;
+        color: #ffffff;
+    }
+</style>
+{% endblock stylesheets %}
+{% block content %}
+
+<div class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mt-5 mb-5">
+                <!-- <div class="cancel-icon">❌</div> -->
+                <div class="cancel-icon"><i class="fa fa-times-circle-o"></i></div>
+                <div class="cancel-message">Payment Cancelled</div>
+                <p class="info-text mb-5">Your payment was not completed. Please try again or contact support.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
