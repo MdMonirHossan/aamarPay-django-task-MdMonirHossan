@@ -37,3 +37,7 @@ class TransactionListView(generics.ListAPIView):
 def payment_success(request):
     context = {}
     return render(request, 'payment_success.html', context)
+
+def payment_cancel(request):
+    context = {}
+    return render(request, 'payment_cancel.html', context)
