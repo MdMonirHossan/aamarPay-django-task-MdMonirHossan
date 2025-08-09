@@ -16,7 +16,7 @@ Section 2: Model Design & Admin
 	
 Section 3: User Authentication & API Endpoints (DRF)
 	- Authentication
-	- Api endpoint login (View)
+	- Api endpoints (View)
 	- URLs
 	- Api documentation (Swagger)
 	
