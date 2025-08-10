@@ -120,6 +120,7 @@ class FileUploadView(generics.CreateAPIView):
             status = 'success'
         ).order_by('-completed_at').first()
 
+        # Return response if latest payment not found
         if not latest_payment:
             return Response(
                 {''
@@ -127,10 +128,17 @@ class FileUploadView(generics.CreateAPIView):
                 }, 
                 status=status.HTTP_400_BAD_REQUEST
             )
+        # data sanitization from serializer
+        data = serializer.validated_data
+        if 'filename' not in data or data['filename'] == "":
+            filename = self.request.FILES.get('file').name.split('.')[0]
+        else:
+            filename = data['filename']
 
-        upload_file = serializer.save(user=self.request.user)
+        # save upload file data
+        upload_file = serializer.save(user=self.request.user, filename=filename)
 
-        return Response(upload_file)
+        return Response()
 
 class FileListView(generics.ListAPIView):
     """
