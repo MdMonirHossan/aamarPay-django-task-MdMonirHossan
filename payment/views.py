@@ -104,7 +104,7 @@ class FileUploadView(generics.CreateAPIView):
     if the payment is successful then can_upload_file flag is change to True
 
     Returns:
-
+        Obj: FileUpload
     """
     serializer_class = FileUploadSerializer
     permission_classes = [IsAuthenticated]
