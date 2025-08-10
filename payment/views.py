@@ -3,17 +3,20 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.utils import timezone
+from django.contrib.auth.models import User
 from rest_framework import views, generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from decouple import config
 from libs.utils.constants.model_constants import PAYMENT_STATUS_CHOICES
+from activity_log.models import ActivityLog
 from .models import FileUpload, PaymentTransaction
 from .serializers import (
     FileUploadSerializer, 
     PaymentTransactionSerializer,
     PaymentInitiateSerializer,
 )
+from .utils import update_transaction
 
 # Create your views here.
 
@@ -82,6 +85,13 @@ class InitiatePaymentView(views.APIView):
                     amount=req_data['amount'],
                     status='pending'
                 )
+                # Create user activity
+                ActivityLog.objects.create(
+                    user=request.user, 
+                    action="Payment Initiate", 
+                    description = f"Payment initiated by {request.user} and transaction id {transaction_id}",
+                    metadata=data
+                )
                 return Response({"payment_url": data.get('payment_url')})
             return Response({'error': 'Payment initiation failed'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
@@ -122,18 +132,22 @@ def payment_success(request):
     context = {}
     if request.method == "POST":
         data = request.POST.dict()  # form data sent by aamarPay
-        print("✅ Payment success POST data:", data)
         if data['pay_status'] == 'Successful':
-            transaction_id = data['mer_txnid']
+            
+            # Utility function for updating transaction
+            update_transaction(data, 'success', True)
 
-            # Get PaymentTransaction instance by transaction id
-            transaction = get_object_or_404(PaymentTransaction, transaction_id=transaction_id)
-            # Update transaction and enable file upload status for user
-            transaction.status           = 'success'
-            transaction.can_upload_file  = True
-            transaction.complete_at      = timezone.now()
-            transaction.gateway_response = data
-            transaction.save()
+            # Create user activity
+            try:
+                user = User.objects.get(username=data['cus_name'])
+                ActivityLog.objects.create(
+                    user = user, 
+                    action = "Payment Successful", 
+                    description = f"Payment successful and transaction id {data['mer_txnid']}",
+                    metadata = data
+                )
+            except:
+                pass
         return render(request, 'payment_success.html', context)
     return JsonResponse({"error": "Invalid request"}, status=400)
 
@@ -145,4 +159,23 @@ def payment_cancel(request):
 @csrf_exempt
 def payment_failed(request):
     context = {}
-    return render(request, 'payment_failed.html', context)
+    if request.method == "POST":
+        data = request.POST.dict()  # form data sent by aamarPay
+        if data['pay_status'] == 'Failed':
+            
+            # Utility function for updating transaction
+            update_transaction(data, 'failed')
+
+            # Create user activity
+            try:
+                user = User.objects.get(username=data['cus_name'])
+                ActivityLog.objects.create(
+                    user = user, 
+                    action = "Payment Failed", 
+                    description = f"Payment failed and transaction id {data['mer_txnid']}",
+                    metadata = data
+                )
+            except:
+                pass
+        return render(request, 'payment_failed.html', context)
+    return JsonResponse({"error": "Invalid request"}, status=400)
