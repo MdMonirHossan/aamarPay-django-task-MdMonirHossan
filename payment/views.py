@@ -1,6 +1,7 @@
 import requests, json
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from django.utils import timezone
 from rest_framework import views, generics, status
 from rest_framework.response import Response
@@ -38,13 +39,14 @@ class InitiatePaymentView(views.APIView):
         # sandbox url for env
         payment_url = config('PAYMENT_URL')
         # initiate payment request payload
+        transaction_id = f"trn{timezone.now().timestamp()}"
         payload = {
             "store_id": config('STORE_ID'),
             "signature_key": config('SIGNATURE_KEY'),
             "success_url": request.build_absolute_uri(config('SUCCESS_URL')),
             "fail_url": request.build_absolute_uri(config('FAIL_URL')),
             "cancel_url": request.build_absolute_uri(config('CANCEL_URL')),
-            "tran_id": f"trn{timezone.now().timestamp()}",
+            "tran_id": transaction_id,
             "amount": str(req_data['amount']),
             "currency": req_data['currency'],
             "desc": req_data['description'],
@@ -72,10 +74,17 @@ class InitiatePaymentView(views.APIView):
         try:
             data = response.json()
             if bool(data.get('result')):
+                # Create pending transaction
+                PaymentTransaction.objects.create(
+                    user=request.user,
+                    transaction_id=transaction_id,
+                    amount=req_data['amount'],
+                    status="Pending"
+                )
                 return Response({"payment_url": data.get('payment_url')})
             return Response({'error': 'Payment initiation failed'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response({'error': 'Payment initiation failed'}, status=500)
+            return Response({'error': str(e)}, status=500)
 
 
 class FileListView(generics.ListAPIView):
@@ -107,7 +116,11 @@ class TransactionListView(generics.ListAPIView):
 @csrf_exempt
 def payment_success(request):
     context = {}
-    return render(request, 'payment_success.html', context)
+    if request.method == "POST":
+        data = request.POST.dict()  # form data sent by aamarPay
+        print("✅ Payment success POST data:", data)
+        return render(request, 'payment_success.html', context)
+    return JsonResponse({"error": "Invalid request"}, status=400)
 
 @csrf_exempt
 def payment_cancel(request):

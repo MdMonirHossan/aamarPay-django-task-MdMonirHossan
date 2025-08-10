@@ -35,7 +35,7 @@ class PaymentTransaction(BaseModel):
     transaction_id   = models.CharField(max_length=255)
     amount           = models.DecimalField(max_digits=10, decimal_places=2)
     status           = models.CharField(max_length=50)
-    gateway_response = models.JSONField()
+    gateway_response = models.JSONField(null=True)
 
     class Meta:
         verbose_name_plural = 'Transactions'
