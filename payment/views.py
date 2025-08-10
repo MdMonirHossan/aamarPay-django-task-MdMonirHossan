@@ -100,68 +100,6 @@ class InitiatePaymentView(views.APIView):
             return Response({'error': str(e)}, status=500)
 
 
-# class FileUploadView(generics.CreateAPIView):
-#     """
-#     Allows file uploads only if user has a complete a successful payment.
-#     if the payment is successful then can_upload_file flag is change to True
-
-#     Returns:
-#         Obj: FileUpload
-#     """
-#     serializer_class = FileUploadSerializer
-#     permission_classes = [IsAuthenticated]
-
-#     def perform_create(self, serializer):
-#         '''
-        
-#         '''
-#         # Check for payment eligibility
-#         latest_payment = PaymentTransaction.objects.filter(
-#             user = self.request.user,
-#             can_upload_file = True,
-#             status = 'success'
-#         ).order_by('-completed_at').first()
-
-#         # Return response if latest payment not found
-#         if not latest_payment:
-#             return Response({"error": "You must complete a payment before uploading file."}, status=status.HTTP_400_BAD_REQUEST)
-        
-#         # data sanitization from serializer
-#         data = serializer.validated_data
-#         file = self.request.FILES.get('file')
-#         if 'filename' not in data or data['filename'] == "":
-#             filename = file.name.split('.')[0]
-#         else:
-#             filename = data['filename']
-
-#         # save upload file data
-#         upload_file = serializer.save(
-#             user = self.request.user, 
-#             filename = filename,
-#             upload_time = timezone.now()
-#         )
-
-#         # Make payment as used
-#         latest_payment.can_upload_file = False
-#         latest_payment.save()
-
-#         # Create activity log for file upload
-#         metadata = {
-#             "status" : upload_file.status,
-#             "upload_time" : str(upload_file.upload_time),
-#             "filename" : file.name,
-#             "file_size": file.size,
-#             "content_type": file.content_type,
-#         }
-#         # Create activity log for file upload
-#         ActivityLog.objects.create(
-#             user = self.request.user,
-#             action = 'File Upload',
-#             description = f"File {filename} uploaded after successful payment.",
-#             metadata = metadata
-#         )
-#         return Response(upload_file, status=status.HTTP_201_CREATED)
-
 class FileUploadView(views.APIView):
     """
     Allows file uploads only if user has a complete a successful payment.
@@ -237,7 +175,7 @@ class FileUploadView(views.APIView):
 
         # Trigger celery task for word count
         process_file_word_count.delay(upload_file.id)
-        
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
         
 

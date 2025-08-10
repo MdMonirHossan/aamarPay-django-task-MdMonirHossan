@@ -18,7 +18,7 @@ class ActivityLog(BaseModel):
     metadata    = models.JSONField()
 
     class Meta:
-        verbose_name_plural = 'Activities'
+        verbose_name_plural = 'Activity Logs'
         ordering = ('-created_at',)
 
     def __str__(self):
