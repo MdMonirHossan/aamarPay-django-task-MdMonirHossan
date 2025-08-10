@@ -1,7 +1,7 @@
 from django.db import models
 from libs.core.models.base_models import BaseModel
 from django.contrib.auth.models import User
-from libs.utils.constants.model_constants import FILE_STATUS_CHOICES
+from libs.utils.constants.model_constants import FILE_STATUS_CHOICES, PAYMENT_STATUS_CHOICES
 
 # Create your models here.
 class FileUpload(BaseModel):
@@ -34,7 +34,9 @@ class PaymentTransaction(BaseModel):
     user             = models.ForeignKey(User, related_name='transactions', on_delete=models.CASCADE)
     transaction_id   = models.CharField(max_length=255)
     amount           = models.DecimalField(max_digits=10, decimal_places=2)
-    status           = models.CharField(max_length=50)
+    status           = models.CharField(max_length=50, choices=PAYMENT_STATUS_CHOICES, default='pending')
+    can_upload_file  = models.BooleanField(default=False)
+    complete_at      = models.DateTimeField(null=True)
     gateway_response = models.JSONField(null=True)
 
     class Meta:

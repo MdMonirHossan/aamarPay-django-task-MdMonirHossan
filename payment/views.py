@@ -1,5 +1,5 @@
 import requests, json
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.utils import timezone
@@ -7,6 +7,7 @@ from rest_framework import views, generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from decouple import config
+from libs.utils.constants.model_constants import PAYMENT_STATUS_CHOICES
 from .models import FileUpload, PaymentTransaction
 from .serializers import (
     FileUploadSerializer, 
@@ -79,7 +80,7 @@ class InitiatePaymentView(views.APIView):
                     user=request.user,
                     transaction_id=transaction_id,
                     amount=req_data['amount'],
-                    status="Pending"
+                    status='pending'
                 )
                 return Response({"payment_url": data.get('payment_url')})
             return Response({'error': 'Payment initiation failed'}, status=status.HTTP_400_BAD_REQUEST)
@@ -115,10 +116,24 @@ class TransactionListView(generics.ListAPIView):
     
 @csrf_exempt
 def payment_success(request):
+    """
+    Handles the payment success callback from AamarPay
+    """
     context = {}
     if request.method == "POST":
         data = request.POST.dict()  # form data sent by aamarPay
         print("✅ Payment success POST data:", data)
+        if data['pay_status'] == 'Successful':
+            transaction_id = data['mer_txnid']
+
+            # Get PaymentTransaction instance by transaction id
+            transaction = get_object_or_404(PaymentTransaction, transaction_id=transaction_id)
+            # Update transaction and enable file upload status for user
+            transaction.status           = 'success'
+            transaction.can_upload_file  = True
+            transaction.complete_at      = timezone.now()
+            transaction.gateway_response = data
+            transaction.save()
         return render(request, 'payment_success.html', context)
     return JsonResponse({"error": "Invalid request"}, status=400)
 
