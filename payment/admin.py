@@ -13,7 +13,7 @@ class FileUploadAdmin(admin.ModelAdmin):
 
 @admin.register(PaymentTransaction)
 class PaymentTransactionAdmin(admin.ModelAdmin):
-    list_display    = ('user', 'transaction_id', 'amount', 'status', 'created_at')
+    list_display    = ('user', 'transaction_id', 'amount', 'status', 'completed_at', 'created_at')
     list_filter     = ('transaction_id', 'user', 'status')
     search_fields   = ('transaction_id', 'user__username', 'status')
     # readonly_fields = ('user', 'transaction_id', 'amount', 'status', 'gateway_response', 'created_at')

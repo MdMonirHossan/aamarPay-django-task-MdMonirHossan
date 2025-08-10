@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import (
     InitiatePaymentView,
+    FileUploadView,
     FileListView, 
     TransactionListView,
     payment_success,
@@ -10,6 +11,7 @@ from .views import (
 
 urlpatterns = [
     path('initiate-payment', InitiatePaymentView.as_view(), name='payment_initiate'),
+    path('upload', FileUploadView.as_view(), name='upload_file'),
     path('files', FileListView.as_view(), name='file_list'),
     path('transactions', TransactionListView.as_view(), name='transaction_list'),
 

@@ -11,9 +11,9 @@ class FileUpload(BaseModel):
     relations: [User]
     ordering: [-create_at]
     """
-    user        = models.ForeignKey(User, related_name='uploads', on_delete=models.CASCADE,)
+    user        = models.ForeignKey(User, related_name='file_uploads', on_delete=models.CASCADE,)
     file        = models.FileField(upload_to='uploads/')
-    filename    = models.CharField(max_length=255)
+    filename    = models.CharField(max_length=255, null=True)
     status      = models.CharField(max_length=20, choices=FILE_STATUS_CHOICES, default='processing')
     word_count  = models.PositiveBigIntegerField(null=True, blank=True)
 
@@ -21,7 +21,7 @@ class FileUpload(BaseModel):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return f'{self.filename} {self.status}'
+        return f'{self.filename} | {self.status}'
     
 
 class PaymentTransaction(BaseModel):
@@ -36,7 +36,7 @@ class PaymentTransaction(BaseModel):
     amount           = models.DecimalField(max_digits=10, decimal_places=2)
     status           = models.CharField(max_length=50, choices=PAYMENT_STATUS_CHOICES, default='pending')
     can_upload_file  = models.BooleanField(default=False)
-    complete_at      = models.DateTimeField(null=True)
+    completed_at     = models.DateTimeField(null=True)
     gateway_response = models.JSONField(null=True)
 
     class Meta:

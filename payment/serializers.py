@@ -29,7 +29,7 @@ class FileUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileUpload
         fields = '__all__'
-        read_only_fields = ['status', 'word_count', 'crated_at']
+        read_only_fields = ['user', 'status', 'word_count', 'crated_at']
 
 class PaymentInitiateSerializer(serializers.Serializer):
     """

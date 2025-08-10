@@ -98,6 +98,40 @@ class InitiatePaymentView(views.APIView):
             return Response({'error': str(e)}, status=500)
 
 
+class FileUploadView(generics.CreateAPIView):
+    """
+    Allows file uploads only if user has a complete a successful payment.
+    if the payment is successful then can_upload_file flag is change to True
+
+    Returns:
+
+    """
+    serializer_class = FileUploadSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        '''
+        
+        '''
+        # Check for payment eligibility
+        latest_payment = PaymentTransaction.objects.filter(
+            user = self.request.user,
+            can_upload_file = True,
+            status = 'success'
+        ).order_by('-completed_at').first()
+
+        if not latest_payment:
+            return Response(
+                {''
+                    'message': 'You must complete a payment before uploading files.'
+                }, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        upload_file = serializer.save(user=self.request.user)
+
+        return Response(upload_file)
+
 class FileListView(generics.ListAPIView):
     """
     This List API view is responsible for providing a list of uploaded files by requested user.

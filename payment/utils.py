@@ -11,6 +11,6 @@ def update_transaction(data, status, can_upload_file=False):
     if tran_status not in ['success', 'failed']:
         transaction.status           = status
         transaction.can_upload_file  = can_upload_file
-        transaction.complete_at      = timezone.now()
+        transaction.completed_at     = timezone.now()
         transaction.gateway_response = data
         transaction.save()
