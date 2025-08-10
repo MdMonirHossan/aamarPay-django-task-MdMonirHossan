@@ -174,6 +174,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Celery config
+CELERY_BROKER_URL = 'redis://localhost:6380/0'
+
 # Swagger config
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
