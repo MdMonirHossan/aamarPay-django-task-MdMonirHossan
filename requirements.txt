@@ -18,12 +18,14 @@ drf-yasg==1.21.10
 idna==3.10
 inflection==0.5.1
 kombu==5.5.4
+lxml==6.0.0
 mysqlclient==2.2.7
 packaging==25.0
 prompt-toolkit==3.0.51
 PyJWT==2.9.0
 python-dateutil==2.9.0.post0
 python-decouple==3.8
+python-docx==1.1.2
 pytz==2025.2
 PyYAML==6.0.2
 redis==6.1.1

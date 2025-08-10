@@ -18,6 +18,7 @@ from .serializers import (
     PaymentInitiateSerializer,
 )
 from .utils import update_transaction
+from .celery_task import process_file_word_count
 
 # Create your views here.
 
@@ -233,6 +234,10 @@ class FileUploadView(views.APIView):
             description = f"File {filename} uploaded after successful payment.",
             metadata = metadata
         )
+
+        # Trigger celery task for word count
+        process_file_word_count.delay(upload_file.id)
+        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
         
 
