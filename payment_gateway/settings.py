@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'user',
     'payment',
     'activity_log',
+
+    # DRF yasg (Yet Another Swagger App)
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -170,3 +173,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Swagger config
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+}
