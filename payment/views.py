@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from rest_framework import views, generics, status
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from decouple import config
 from libs.utils.constants.model_constants import PAYMENT_STATUS_CHOICES
@@ -98,7 +99,69 @@ class InitiatePaymentView(views.APIView):
             return Response({'error': str(e)}, status=500)
 
 
-class FileUploadView(generics.CreateAPIView):
+# class FileUploadView(generics.CreateAPIView):
+#     """
+#     Allows file uploads only if user has a complete a successful payment.
+#     if the payment is successful then can_upload_file flag is change to True
+
+#     Returns:
+#         Obj: FileUpload
+#     """
+#     serializer_class = FileUploadSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def perform_create(self, serializer):
+#         '''
+        
+#         '''
+#         # Check for payment eligibility
+#         latest_payment = PaymentTransaction.objects.filter(
+#             user = self.request.user,
+#             can_upload_file = True,
+#             status = 'success'
+#         ).order_by('-completed_at').first()
+
+#         # Return response if latest payment not found
+#         if not latest_payment:
+#             return Response({"error": "You must complete a payment before uploading file."}, status=status.HTTP_400_BAD_REQUEST)
+        
+#         # data sanitization from serializer
+#         data = serializer.validated_data
+#         file = self.request.FILES.get('file')
+#         if 'filename' not in data or data['filename'] == "":
+#             filename = file.name.split('.')[0]
+#         else:
+#             filename = data['filename']
+
+#         # save upload file data
+#         upload_file = serializer.save(
+#             user = self.request.user, 
+#             filename = filename,
+#             upload_time = timezone.now()
+#         )
+
+#         # Make payment as used
+#         latest_payment.can_upload_file = False
+#         latest_payment.save()
+
+#         # Create activity log for file upload
+#         metadata = {
+#             "status" : upload_file.status,
+#             "upload_time" : str(upload_file.upload_time),
+#             "filename" : file.name,
+#             "file_size": file.size,
+#             "content_type": file.content_type,
+#         }
+#         # Create activity log for file upload
+#         ActivityLog.objects.create(
+#             user = self.request.user,
+#             action = 'File Upload',
+#             description = f"File {filename} uploaded after successful payment.",
+#             metadata = metadata
+#         )
+#         return Response(upload_file, status=status.HTTP_201_CREATED)
+
+class FileUploadView(views.APIView):
     """
     Allows file uploads only if user has a complete a successful payment.
     if the payment is successful then can_upload_file flag is change to True
@@ -106,13 +169,9 @@ class FileUploadView(generics.CreateAPIView):
     Returns:
         Obj: FileUpload
     """
-    serializer_class = FileUploadSerializer
-    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
-    def perform_create(self, serializer):
-        '''
-        
-        '''
+    def post(self, request, *args, **kwargs):
         # Check for payment eligibility
         latest_payment = PaymentTransaction.objects.filter(
             user = self.request.user,
@@ -123,22 +182,59 @@ class FileUploadView(generics.CreateAPIView):
         # Return response if latest payment not found
         if not latest_payment:
             return Response(
-                {''
-                    'message': 'You must complete a payment before uploading files.'
-                }, 
+                {"error": "You must complete a payment before uploading file."}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
-        # data sanitization from serializer
-        data = serializer.validated_data
-        if 'filename' not in data or data['filename'] == "":
-            filename = self.request.FILES.get('file').name.split('.')[0]
-        else:
-            filename = data['filename']
+        
+        # Get file
+        file = request.FILES.get('file')
+        if not file:
+            return Response(
+                {"error": "No file provided"},
+                status = status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Validate file extension
+        extension = file.name.split('.')[-1].lower()
+        if extension not in ['txt', 'docx']:
+            return Response(
+                {"error": f'Invalid file type. Allowed only .txt & .docs file.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # File name
+        filename = request.data.get('filename') or file.name.split('.')[0]
 
-        # save upload file data
-        upload_file = serializer.save(user=self.request.user, filename=filename)
+        # validate and save file record via serializer
+        serializer = FileUploadSerializer(data={
+            "file": file,
+            "filename": filename
+        })
+        serializer.is_valid(raise_exception=True)
+        upload_file = serializer.save(user=request.user, upload_time=timezone.now())
 
-        return Response()
+        # Make payment as used
+        latest_payment.can_upload_file = False
+        latest_payment.save()
+
+        # Create activity log for file upload
+        metadata = {
+            "status" : upload_file.status,
+            "upload_time" : str(upload_file.upload_time),
+            "filename" : file.name,
+            "file_size": file.size,
+            "content_type": file.content_type,
+        }
+
+        # Create activity log for file upload
+        ActivityLog.objects.create(
+            user = self.request.user,
+            action = 'File Upload',
+            description = f"File {filename} uploaded after successful payment.",
+            metadata = metadata
+        )
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
 
 class FileListView(generics.ListAPIView):
     """

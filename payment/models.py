@@ -16,6 +16,7 @@ class FileUpload(BaseModel):
     filename    = models.CharField(max_length=255, null=True)
     status      = models.CharField(max_length=20, choices=FILE_STATUS_CHOICES, default='processing')
     word_count  = models.PositiveBigIntegerField(null=True, blank=True)
+    upload_time = models.DateTimeField(null=True)
 
     class Meta:
         ordering = ('-created_at',)

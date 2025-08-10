@@ -32,20 +32,20 @@ class FileUploadSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['user', 'status', 'word_count', 'crated_at']
 
-    def validate_file(self, value):
-        '''
-        Validate file extension.
-        Restrict file extension during file upload.
-        '''
-        # validate extension
-        extensions = ['.docx', '.txt']
-        extension = os.path.splitext(value.name)[1].lower()
-        if extension not in extensions:
-            raise serializers.ValidationError(
-                f'Invalid file type. Allowed only {extensions} types file.'
-            )
+    # def validate_file(self, value):
+    #     '''
+    #     Validate file extension.
+    #     Restrict file extension during file upload.
+    #     '''
+    #     # validate extension
+    #     extensions = ['.docx', '.txt']
+    #     extension = os.path.splitext(value.name)[1].lower()
+    #     if extension not in extensions:
+    #         raise serializers.ValidationError(
+    #             f'Invalid file type. Allowed only {extensions} types file.'
+    #         )
 
-        return value
+    #     return value
 
 class PaymentInitiateSerializer(serializers.Serializer):
     """
