@@ -17,6 +17,9 @@ Section 2: Model Design & Admin
 Section 3: User Authentication & API Endpoints (DRF)
 	- Authentication
 	- Api endpoints (View)
+	- Sanbox Integration
+	- Payment initiate, Success Callback, Failed Callback.
+	- File upload enability
 	- URLs
 	- Api documentation (Swagger)
 	
