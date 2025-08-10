@@ -33,6 +33,17 @@ services:
     env_file:
       - .env
 
+  celery:
+    build: .
+    command: celery -A payment_gateway worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+      - redis
+    env_file:
+      - .env
+
 
 
 volumes:

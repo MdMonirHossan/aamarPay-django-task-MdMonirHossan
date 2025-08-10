@@ -175,7 +175,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery config
-CELERY_BROKER_URL = 'redis://localhost:6380/0'
+# CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = config('REDIS_URL')
 
 # Swagger config
 SWAGGER_SETTINGS = {
