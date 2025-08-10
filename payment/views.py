@@ -1,5 +1,6 @@
 import requests, json
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from rest_framework import views, generics, status
 from rest_framework.response import Response
@@ -16,16 +17,27 @@ from .serializers import (
 
 class InitiatePaymentView(views.APIView):
     """
+    This API view is handling initiate a payment to aamarpay sandbox payment gateway.
+    After successful request it will return a payment url.
+
+    Permissions:
+        IsAuthenticated
     
+    Serializer:
+        PaymentInitiateSerializer
+
+    Returns:
+        Response with payment_url or error.
     """
     permission_classes  = [IsAuthenticated]
     def post(self, request):
-        print('data ----- ', request.data)
         serializer = PaymentInitiateSerializer(data=request.data)
+        # raise exception for invalid data
         serializer.is_valid(raise_exception=True)
         req_data = serializer.validated_data
-        print('------------ reqe data ', req_data)
+        # sandbox url for env
         payment_url = config('PAYMENT_URL')
+        # initiate payment request payload
         payload = {
             "store_id": config('STORE_ID'),
             "signature_key": config('SIGNATURE_KEY'),
@@ -50,13 +62,13 @@ class InitiatePaymentView(views.APIView):
         headers = {
             'Content-Type': 'application/json'
         }
-        print('----- payload ', payload)
+        # Request to the aamarpay sandbox
         response = requests.post(
             payment_url, 
             json=payload,
             headers=headers
         )
-        print('----- response --- ', response)
+        # handling response
         try:
             data = response.json()
             if bool(data.get('result')):
@@ -92,15 +104,17 @@ class TransactionListView(generics.ListAPIView):
         '''
         return PaymentTransaction.objects.filter(user=self.request.user)
     
-
+@csrf_exempt
 def payment_success(request):
     context = {}
     return render(request, 'payment_success.html', context)
 
+@csrf_exempt
 def payment_cancel(request):
     context = {}
     return render(request, 'payment_cancel.html', context)
 
+@csrf_exempt
 def payment_failed(request):
     context = {}
     return render(request, 'payment_failed.html', context)
