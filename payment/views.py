@@ -17,7 +17,7 @@ from .serializers import (
     PaymentTransactionSerializer,
     PaymentInitiateSerializer,
 )
-from .utils import update_transaction
+from .utils import update_transaction, get_latest_payment
 from .celery_task import process_file_word_count
 
 # Create your views here.
