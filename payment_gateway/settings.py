@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'user',
     'payment',
     'activity_log',
+    'dashboard',
 
     # DRF yasg (Yet Another Swagger App)
     'drf_yasg',

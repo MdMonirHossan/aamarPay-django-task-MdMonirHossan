@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/user/', include('user.urls')),
     path('api/', include('payment.urls')),
     path('api/', include('activity_log.urls')),
+    path('', include('dashboard.urls')),
 
     # Third party urls (Authentication)
     path('api/auth/token', TokenObtainPairView.as_view(), name='auth_token'),

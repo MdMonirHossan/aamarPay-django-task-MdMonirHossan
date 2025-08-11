@@ -25,8 +25,7 @@ Section 3: User Authentication & API Endpoints (DRF)
 	
 Section 4: Asynchronous Task wiht Celery and redis
 	- Celery setup
-	- File upload Task implementation
-	- Word count task implementation
+	- Process file and Word count task implementation
 	
 Section 5: Frontend Development
 	- Dashboard page view
