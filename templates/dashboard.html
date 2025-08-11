@@ -21,13 +21,13 @@
                     <tbody>
                         {% for file in files %}
                         <tr>
-                            <td></td>
-                            <td>{{file.filename}}</td>
-                            <td>{{file.file}}</td>
-                            <td>{{file.status}}</td>
-                            <td>{{file.word_count}}</td>
-                            <td>{{file.upload_time}}</td>
-                            <td>{{file.created_at}}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ file.filename }}</td>
+                            <td>{{ file.file }}</td>
+                            <td>{{ file.status }}</td>
+                            <td>{{ file.word_count }}</td>
+                            <td>{{ file.upload_time }}</td>
+                            <td>{{ file.created_at }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

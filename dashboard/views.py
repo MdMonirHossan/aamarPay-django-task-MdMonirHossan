@@ -36,3 +36,24 @@ def signup(request):
         'title': 'Sign Up',
     }
     return render(request, 'signup.html', context)
+
+
+def login(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            messages.warning(request, 'You are already logged in')
+            return redirect('/')
+    if request.method == 'POST':
+        user_name = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=user_name, password=password)
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'Log in Successful')
+            return redirect('dashboard')
+        else:
+            messages.warning(request, 'No user found')
+    context = {
+        'title': 'Sign In',
+    }
+    return render(request, 'login.html', context)
