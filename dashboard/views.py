@@ -1,7 +1,9 @@
+# Django imports
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import auth, User
+# Project app imports
 from payment.models import PaymentTransaction, FileUpload
 from activity_log.models import ActivityLog
 from payment.celery_task import process_file_word_count

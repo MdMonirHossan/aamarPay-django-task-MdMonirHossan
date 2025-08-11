@@ -1,15 +1,20 @@
+# Python imports
 import requests, json
+from decouple import config
+# Django imports
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.utils import timezone
 from django.contrib.auth.models import User
+# DRF imports
 from rest_framework import views, generics, status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
-from decouple import config
+# Libs imports
 from libs.utils.constants.model_constants import PAYMENT_STATUS_CHOICES
+# Projects app imports
 from activity_log.models import ActivityLog
 from .models import FileUpload, PaymentTransaction
 from .serializers import (
@@ -42,7 +47,7 @@ class InitiatePaymentView(views.APIView):
         # raise exception for invalid data
         serializer.is_valid(raise_exception=True)
         req_data = serializer.validated_data
-        # sandbox url for env
+        # sandbox url from env
         payment_url = config('PAYMENT_URL')
         # initiate payment request payload
         transaction_id = f"trn{timezone.now().timestamp()}"
@@ -112,11 +117,7 @@ class FileUploadView(views.APIView):
 
     def post(self, request, *args, **kwargs):
         # Check for payment eligibility
-        latest_payment = PaymentTransaction.objects.filter(
-            user = self.request.user,
-            can_upload_file = True,
-            status = 'success'
-        ).order_by('-completed_at').first()
+        latest_payment = get_latest_payment(self.request)
 
         # Return response if latest payment not found
         if not latest_payment:
@@ -156,22 +157,25 @@ class FileUploadView(views.APIView):
         latest_payment.can_upload_file = False
         latest_payment.save()
 
-        # Create activity log for file upload
-        metadata = {
-            "status" : upload_file.status,
-            "upload_time" : str(upload_file.upload_time),
-            "filename" : file.name,
-            "file_size": file.size,
-            "content_type": file.content_type,
-        }
+        try:
+            # Create activity log for file upload
+            metadata = {
+                "status" : upload_file.status,
+                "upload_time" : str(upload_file.upload_time),
+                "filename" : file.name,
+                "file_size": file.size,
+                "content_type": file.content_type,
+            }
 
-        # Create activity log for file upload
-        ActivityLog.objects.create(
-            user = self.request.user,
-            action = 'File Upload',
-            description = f"File {filename} uploaded after successful payment.",
-            metadata = metadata
-        )
+            # Create activity log for file upload
+            ActivityLog.objects.create(
+                user = self.request.user,
+                action = 'File Upload',
+                description = f"File {filename} uploaded after successful payment.",
+                metadata = metadata
+            )
+        except:
+            pass
 
         # Trigger celery task for word count
         process_file_word_count.delay(upload_file.id)
@@ -234,16 +238,28 @@ def payment_success(request):
 
 @csrf_exempt
 def payment_cancel(request):
+    """
+    Payment cancel callback view from aamarpay.
+
+    Returns:
+        render: payment_cancel.html
+    """
     context = {}
     return render(request, 'payment_cancel.html', context)
 
 @csrf_exempt
 def payment_failed(request):
+    """
+    Payment failed callback view from aamarpay
+
+    Returns:
+        render: payment_failed.html
+    """
     context = {}
     if request.method == "POST":
         data = request.POST.dict()  # form data sent by aamarPay
+
         if data['pay_status'] == 'Failed':
-            
             # Utility function for updating transaction
             update_transaction(data, 'failed')
 
