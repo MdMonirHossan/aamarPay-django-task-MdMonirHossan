@@ -1,10 +1,10 @@
 from django.contrib import admin
 from .models import FileUpload, PaymentTransaction
-from libs.utils.permissions.staff_permission import ReadOnlyForStaffMixin
+from libs.core.admin.permissions.staff_permission import ReadOnlyForStaffMixin
 
 # Register your models here.
 @admin.register(FileUpload)
-class FileUploadAdmin(admin.ModelAdmin):
+class FileUploadAdmin(ReadOnlyForStaffMixin, admin.ModelAdmin):
     """
     Admin configuration for FileUpload model.
     """
@@ -15,7 +15,7 @@ class FileUploadAdmin(admin.ModelAdmin):
 
 
 @admin.register(PaymentTransaction)
-class PaymentTransactionAdmin(admin.ModelAdmin):
+class PaymentTransactionAdmin(ReadOnlyForStaffMixin, admin.ModelAdmin):
     """
     Admin configuration for PaymentTransaction model.
     """
