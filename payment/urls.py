@@ -17,7 +17,7 @@ urlpatterns = [
     path('transactions', TransactionListView.as_view(), name='transaction_list'),
 
     # Aamarpay callback urls
-    path('success', payment_success, name='success_page'),
-    path('cancel', payment_cancel, name='cancel_page'),
-    path('failed', payment_failed, name='failed_page'),
+    path('payment/success', payment_success, name='success_page'),
+    path('payment/cancel', payment_cancel, name='cancel_page'),
+    path('payment/failed', payment_failed, name='failed_page'),
 ]
