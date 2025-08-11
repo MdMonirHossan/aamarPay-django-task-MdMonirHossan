@@ -1,4 +1,5 @@
 import os
+from decimal import Decimal
 from rest_framework import serializers
 from .models import PaymentTransaction, FileUpload
 
@@ -39,7 +40,12 @@ class PaymentInitiateSerializer(serializers.Serializer):
     This serializer is used to represent FileUpload instance and serialize and
     deserialize the fields of FileUpload model.
     """
-    amount              = serializers.DecimalField(max_digits=10, decimal_places=2, default=100.0)
+    amount              = serializers.DecimalField(
+                            max_digits=10, 
+                            decimal_places=2, 
+                            default=100.0,
+                            min_value=Decimal('100.0')
+                        )
     currency            = serializers.CharField(max_length=10, required=False, default='BDT')
     description         = serializers.CharField(max_length=255)
     customer_add1       = serializers.CharField(max_length=255, required=False)

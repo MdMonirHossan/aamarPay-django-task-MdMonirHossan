@@ -1,5 +1,6 @@
 # Django imports
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import auth, User
@@ -10,7 +11,7 @@ from payment.celery_task import process_file_word_count
 from payment.utils import get_latest_payment
 
 # Create your views here.
-
+@login_required(login_url='/login')
 def dashboard(request):
     """
     This function is responsible for rendering dashboard UI and additional logic.

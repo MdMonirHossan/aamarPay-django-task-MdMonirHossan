@@ -3,6 +3,7 @@ from .views import dashboard, signup, login, upload_file
 
 urlpatterns = [
     # Dashboard url
+    path('', dashboard, name='dashboard'),
     path('dashboard', dashboard, name='dashboard'),
 
     # Url for uploading file for dashboard
