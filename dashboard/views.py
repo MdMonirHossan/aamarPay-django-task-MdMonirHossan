@@ -10,11 +10,19 @@ def dashboard(request):
     user_files = FileUpload.objects.filter(user=request.user)
     payment_history = PaymentTransaction.objects.filter(user=request.user)
     activity_log = ActivityLog.objects.filter(user=request.user)
+    # Check for payment eligibility
+    latest_payment = PaymentTransaction.objects.filter(
+        user = request.user,
+        can_upload_file = True,
+        status = 'success'
+    ).order_by('-completed_at').first()
+    can_upload = True if latest_payment else False
     context = {
         'title': 'Dashboard',
         'files': user_files,
         'payments': payment_history,
-        'logs': activity_log
+        'logs': activity_log,
+        'can_upload': can_upload
     }
     return render(request, 'dashboard.html', context)
 
