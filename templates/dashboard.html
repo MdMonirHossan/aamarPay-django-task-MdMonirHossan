@@ -1,5 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>This is dashboard...</h1>
+<div class="row">
+    <div class="col-md-12">
+        <h5>Uploaded Files</h5>
+        <div class="table-border-style m-3">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover " id="">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Filename</th>
+                            <th>File</th>
+                            <th>Status</th>
+                            <th>Word Count</th>
+                            <th>Upload Time</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td></td>
+                            <td>{{file.filename}}</td>
+                            <td>{{file.file}}</td>
+                            <td>{{file.status}}</td>
+                            <td>{{file.word_count}}</td>
+                            <td>{{file.upload_time}}</td>
+                            <td>{{file.created_at}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <!-- [ basic-table ] end -->
+</div>
 {% endblock %}
