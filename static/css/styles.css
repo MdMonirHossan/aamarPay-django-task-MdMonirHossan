@@ -1,15 +1,21 @@
-
-
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800');
+
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
+
 body {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    line-height: 24px;
-    color: #333;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  color: #333;
+}
+th {
+  position: sticky;
+  top: 0;
+  background-color: #f0f0f0;
+  z-index: 1;
 }
 ._success {
   box-shadow: 0 15px 25px #00000019;
@@ -43,12 +49,13 @@ body {
 ._failed {
   border-bottom: solid 4px red !important;
 }
+
 ._failed i {
   color: red !important;
 }
 
 .card {
-    border: 1px solid #d7d7d7;
-    border-radius: 0;
-    margin-bottom: 5px;
+  border: 1px solid #d7d7d7;
+  border-radius: 0;
+  margin-bottom: 5px;
 }

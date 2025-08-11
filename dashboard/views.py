@@ -7,10 +7,14 @@ from activity_log.models import ActivityLog
 # Create your views here.
 
 def dashboard(request):
-    user_files = FileUpload.objects.all()
+    user_files = FileUpload.objects.filter(user=request.user)
+    payment_history = PaymentTransaction.objects.filter(user=request.user)
+    activity_log = ActivityLog.objects.filter(user=request.user)
     context = {
         'title': 'Dashboard',
-        'files': user_files
+        'files': user_files,
+        'payments': payment_history,
+        'logs': activity_log
     }
     return render(request, 'dashboard.html', context)
 

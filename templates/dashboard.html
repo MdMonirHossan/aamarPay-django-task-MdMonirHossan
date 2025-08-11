@@ -2,41 +2,103 @@
 {% load static %}
 {% block content %}
 <div class="row">
-    <div class="col-md-12">
-        <h5>Uploaded Files</h5>
+    <div class="col-md-6">
         <div class="table-border-style m-3">
+            <h5>Uploaded Files</h5>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover " id="">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Filename</th>
-                            <th>File</th>
-                            <th>Status</th>
-                            <th>Word Count</th>
-                            <th>Upload Time</th>
-                            <th>Created</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for file in files %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ file.filename }}</td>
-                            <td>{{ file.file }}</td>
-                            <td>{{ file.status }}</td>
-                            <td>{{ file.word_count }}</td>
-                            <td>{{ file.upload_time }}</td>
-                            <td>{{ file.created_at }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <br>
-                <br>
+                <div class="customer-scroll" style="height:420px;position:relative;">
+                    <table class="table table-bordered table-hover " id="" >
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Filename</th>
+                                <th>File</th>
+                                <th>Status</th>
+                                <th>Word Count</th>
+                                <th>Upload Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file in files %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ file.filename }}</td>
+                                <td style="word-break: break-word;">{{ file.file }}</td>
+                                <td>{{ file.status }}</td>
+                                <td>{{ file.word_count }}</td>
+                                <td>{{ file.upload_time }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <!-- [ basic-table ] end -->
+
+
+    <div class="col-md-6">
+        <div class="table-border-style m-3">
+            <h5>Payment History</h5>
+            <div class="table-responsive">
+                <div class="customer-scroll" style="height:420px;position:relative;">
+                    <table class="table table-bordered table-hover " id="">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Transaction ID</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Completed At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for payment in payments %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ payment.transaction_id }}</td>
+                                <td>{{ payment.amount }}</td>
+                                <td>{{ payment.status }}</td>
+                                <td>{{ payment.completed_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="table-border-style m-3">
+            <h5>Activity Logs</h5>
+            <div class="table-responsive">
+                <div class="customer-scroll" style="height:420px;position:relative;">
+                    <table class="table table-bordered table-hover " id="">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Action</th>
+                                <th>Description</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in logs %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ log.action }}</td>
+                                <td>{{ log.description }}</td>
+                                <td>{{ log.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
