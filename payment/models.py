@@ -1,6 +1,6 @@
 from django.db import models
-from libs.core.models.base_models import BaseModel
 from django.contrib.auth.models import User
+from libs.core.models.base_models import BaseModel
 from libs.utils.constants.model_constants import FILE_STATUS_CHOICES, PAYMENT_STATUS_CHOICES
 
 # Create your models here.

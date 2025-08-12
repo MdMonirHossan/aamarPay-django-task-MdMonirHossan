@@ -44,7 +44,7 @@ class PaymentInitiateSerializer(serializers.Serializer):
                             max_digits=10, 
                             decimal_places=2, 
                             default=100.0,
-                            min_value=Decimal('100.0')
+                            min_value=Decimal('100.0')   # User must have to pay 100
                         )
     currency            = serializers.CharField(max_length=10, required=False, default='BDT')
     description         = serializers.CharField(max_length=255)

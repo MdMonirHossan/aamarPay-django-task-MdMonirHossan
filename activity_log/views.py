@@ -6,7 +6,7 @@ from .serializers import ActivityLogSerializer
 # Create your views here.
 class ActivityLogListView(generics.ListAPIView):
     """
-    This List API view is responsible for providing a list of activity by requested user.
+    This List API view is responsible for providing a list of user activity by requested user.
     """
     permission_classes = [IsAuthenticated]
     serializer_class = ActivityLogSerializer

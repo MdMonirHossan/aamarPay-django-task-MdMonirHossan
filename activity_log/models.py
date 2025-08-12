@@ -5,7 +5,7 @@ from libs.core.models.base_models import BaseModel
 # Create your models here.
 class ActivityLog(BaseModel):
     """
-    This model/entity is responsible to store various activity logs within the application.
+    This model/entity is responsible to store various user activity logs within the application.
     """
     user        = models.ForeignKey(
                     User, 
