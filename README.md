@@ -1,5 +1,5 @@
 # Payment Gateway Integration and Files Uploading System
-This project is a Django-based application that integrates with **aamarPay** for payments and allows users to upload `.docx` or `.txt` files after successful payment. Uploaded files are processed with Celery to count words, and results are stored in the database.
+This project is a Django-based application that integrates with **AamarPay** for payments and allows users to upload `.docx` or `.txt` files after successful payment. Uploaded files are processed with Celery to count words, and results are stored in the database.
 
 
 ## Features
@@ -136,7 +136,7 @@ $ python manage.py runserver
 **=> [Postman Collection](https://github.com/MdMonirHossan/aamarPay-django-task-MdMonirHossan/blob/main/Aamarpay.postman_collection.json)**
 
 ## Postman Environment Variables available at
-**=> [Postman Collection](https://github.com/MdMonirHossan/aamarPay-django-task-MdMonirHossan/blob/main/Aamarpay.postman_environment.json)**
+**=> [Postman Environment](https://github.com/MdMonirHossan/aamarPay-django-task-MdMonirHossan/blob/main/Aamarpay.postman_environment.json)**
 
 
 ## Testing the API with Postman
