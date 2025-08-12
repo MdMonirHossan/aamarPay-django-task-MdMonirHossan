@@ -162,17 +162,23 @@ This project includes a json files for **Postman collection** and **environment*
 
 
 ## Payment Flow 
-- Uer initiate a payment to `aamarpay` sandbox.
-- User will get a payment url after successful payment initiate.
+- Register a user using `/api/user/register` api endpoint.
+- Get access token using `/api/auth/token` api endpoint.
+- Initiate a payment to `aamarpay` sandbox using `/api/initiate-payment` api endpoint.
+- Redirect or browse the `payment url` provided by `Aamarpay` in successful payment initiate.
 - User will be able to perform payment by redirecting to payment url.
 - After payment success/failed/cancel user will redirect to the appropriate ui (success/failed/cancel page).
+- User transaction history can be check using `/api/transactions` api endpoint or in the `/dashboard`.
 
 
 ## File Upload Flow
-- User make payment via `Aamarpay`.
-- After payment confirmation, user uploads `.docx` or `.txt` file.
+- After making payment via `Aamarpay`.
+- After successful payment, user is enable to upload file.
+- Upload `.docx` or `.txt` file using `/api/upload` api endpoint
+- File upload can be done in `/dashboard` using file upload form.
 - Celery processes the file and count words.
 - Database is updated with word count and status to complete in FileUpload.
+- Uploaded files can be check using `/api/files` api endpoint or in the `/dashboard`.
 
 ## API Endpoints
 
