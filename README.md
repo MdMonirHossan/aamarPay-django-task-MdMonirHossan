@@ -143,6 +143,20 @@ $ python manage.py runserver
 
 ---
 
+## Payment Flow 
+- Uer initiate a payment to `aamarpay` sandbox.
+- User will get a payment url after successful payment initiate.
+- User will be able to perform payment by redirecting to payment url.
+- After payment success/failed/cancel user will redirect to the appropriate ui (success/failed/cancel page).
+
+---
+
+## File Upload Flow
+- User make payment via `Aamarpay`.
+- After payment confirmation, user uploads `.docx` or `.txt` file.
+- Celery processes the file and count words.
+- Database is updated with word count and status to complete in FileUpload.
+
 ## API Endpoints
 
 | Method | Endpoint                                  | Description                   |
