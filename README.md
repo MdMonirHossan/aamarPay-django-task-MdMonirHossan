@@ -1,7 +1,6 @@
 # Payment Gateway Integration and Files Uploading System
 This project is a Django-based application that integrates with **aamarPay** for payments and allows users to upload `.docx` or `.txt` files after successful payment. Uploaded files are processed with Celery to count words, and results are stored in the database.
 
----
 
 ## Features
 - User registration and authentication
@@ -12,8 +11,6 @@ This project is a Django-based application that integrates with **aamarPay** for
 - REST API endpoints (JWT authentication)
 - Docker & docker-compose setup
 - Frontend for Dashboard and File upload form
-
----
 
 ## Setup Instructions
 - **Clone the repo.**
@@ -54,7 +51,6 @@ FAIL_URL=/api/payment/failed
 ```bash
 $ docker-compose up --build
 ```
----
 
 ## Running with Manual Configuration
 #### 1. Create a virtual environment & Activate
@@ -126,14 +122,12 @@ $ python manage.py runserver
 **Redoc Docs**
 [http://localhost:8000/api/redoc](http://localhost:8000/api/redoc)
 
----
 
 ## Notes
 - Only `.docx` and `.txt` files are allowed for upload.
 - Staff users can view all in the admin but can not add edit or delete.
 - Superusers have full permissions.
 
----
 
 ## Project workflow/planning available at
 **=> [Workflow/Planning](https://github.com/MdMonirHossan/aamarPay-django-task-MdMonirHossan/blob/main/Development_Planning.txt)**
@@ -141,7 +135,6 @@ $ python manage.py runserver
 ## Postman API collection available at
 **=> [Postman Collection](https://github.com/MdMonirHossan/aamarPay-django-task-MdMonirHossan/blob/main/Aamarpay.postman_collection.json)**
 
----
 
 ## Payment Flow 
 - Uer initiate a payment to `aamarpay` sandbox.
@@ -149,7 +142,6 @@ $ python manage.py runserver
 - User will be able to perform payment by redirecting to payment url.
 - After payment success/failed/cancel user will redirect to the appropriate ui (success/failed/cancel page).
 
----
 
 ## File Upload Flow
 - User make payment via `Aamarpay`.
