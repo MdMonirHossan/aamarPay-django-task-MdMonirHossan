@@ -1,0 +1,1137 @@
+{
+	"info": {
+		"_postman_id": "d069686b-0459-4975-97b5-894ce0be4bd6",
+		"name": "Aamarpay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"merchant\",\n\t\"email\": \"merchant@gmail.com\",\n\t\"password\": \"pass123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"merchant\",\n\t\"email\": \"merchant@gmail.com\",\n\t\"password\": \"pass123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/user/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:29:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"username\": \"merchant\",\n    \"email\": \"merchant@gmail.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const reposnseJson=pm.response.json();",
+									"const accessToken=reposnseJson.access;",
+									"const refreshToken=reposnseJson.refresh;",
+									"pm.environment.set(\"access_token\",accessToken);",
+									"pm.environment.set(\"refresh\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"merchant\",\n\t\"password\": \"pass123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"merchant\",\n\t\"password\": \"pass123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/auth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"auth",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:30:21 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "483"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTU4NTAyMSwiaWF0IjoxNzU0OTgwMjIxLCJqdGkiOiJhNDAyOTk2OTcxZDE0NDUwYTBiZTQxMGZkMWE0ODE3NSIsInVzZXJfaWQiOjV9.9kR-9n7lJDv6p7oe0BytPUibPjU4VEsTt3aUd_6PmRY\",\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU0OTgyMDIxLCJpYXQiOjE3NTQ5ODAyMjEsImp0aSI6Ijg4NDQ3OWQ2MzVhNDRlMGZhNzk3YjYwYzM0MGFlYzBiIiwidXNlcl9pZCI6NX0.FAbmmQiWM69PCCr0zAyJc7cQz0rx3oYWnvBGX7ObC48\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const reposnseJson=pm.response.json();",
+									"const accessToken=reposnseJson.access;",
+									"pm.environment.set(\"access_token\",accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"refresh\": \"{{refresh}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/refresh-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Refresh Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NDgyNDAwNiwiaWF0IjoxNzU0NzM3NjA2LCJqdGkiOiIyZDNiMTkzODMxNTg0MTI4YTE4NmVkZGM5NTE4NzExZSIsInVzZXJfaWQiOjF9.Q5Jl1dwpOzZnt-toCyB04mtRE6tSfhCXInwzW9m-fnQ\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/auth/refresh-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"auth",
+										"refresh-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 09 Aug 2025 11:08:26 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "241"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU0NzM4MDA2LCJpYXQiOjE3NTQ3Mzc2MDYsImp0aSI6Ijg3MjFmNzg1OGVkZTQ1OTRhZWE4ZTQxZTBiZWQ3OTQ2IiwidXNlcl9pZCI6MX0.JW-1rgAwHwkZy_DagiMoBTxjVdg_anhqi0Dc9MGmnr8\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "Initiate Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": 100,\n\t\"currency\": \"BDT\",\n\t\"description\": \"Customer make payment for uploading file\",\n\t\"customer_add1\": \"House B-158 Road 22\",\n\t\"customer_add2\": \"Badda\",\n\t\"customer_city\": \"Dhaka\",\n\t\"customer_state\": \"Dhaka\",\n\t\"customer_postcode\": \"1203\",\n\t\"customer_phone\": \"+8801708040602\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/initiate-payment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"initiate-payment"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Initiate Payment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"amount\": 100,\n\t\"currency\": \"BDT\",\n\t\"description\": \"Customer make payment for uploading file\",\n\t\"customer_add1\": \"House B-158 Road 22\",\n\t\"customer_add2\": \"Badda\",\n\t\"customer_city\": \"Dhaka\",\n\t\"customer_state\": \"Dhaka\",\n\t\"customer_postcode\": \"1203\",\n\t\"customer_phone\": \"+8801708040602\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/initiate-payment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"initiate-payment"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:47:31 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "126"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Payment Initiated\",\n    \"payment_url\": \"https://sandbox.aamarpay.com/paynow.php?track=AAM1754981252103034\",\n    \"status\": 200\n}"
+						}
+					]
+				},
+				{
+					"name": "Payment Success",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pay_status",
+									"value": "Success",
+									"type": "text"
+								},
+								{
+									"key": "mer_txnid",
+									"value": "trn1754812790.075957",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/payment/success",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payment",
+								"success"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Filed",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pay_status",
+									"value": " Failed",
+									"type": "text"
+								},
+								{
+									"key": "mer_txnid",
+									"value": " trn1754812790.075957:",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/payment/failed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payment",
+								"failed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payment Cancel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/payment/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"payment",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File Upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/monir/Downloads/Aamarpay Test Docs.docx"
+								},
+								{
+									"key": "filename",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"upload"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "File Upload",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/monir/Downloads/Aamarpay Test Docs.docx"
+										},
+										{
+											"key": "filename",
+											"value": "test",
+											"type": "text",
+											"disabled": true
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/upload",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"upload"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:32:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "285"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 39,\n    \"created_at\": \"2025-08-12T12:32:41.293055+06:00\",\n    \"updated_at\": \"2025-08-12T12:32:41.293087+06:00\",\n    \"file\": \"/uploads/Aamarpay_Test_Docs_17OvxmD.docx\",\n    \"filename\": \"Aamarpay Test Docs\",\n    \"status\": \"processing\",\n    \"word_count\": null,\n    \"upload_time\": \"2025-08-12T12:32:41.292696+06:00\",\n    \"user\": 5\n}"
+						},
+						{
+							"name": "File Upload",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/monir/Downloads/Aamarpay Test Docs.docx"
+										},
+										{
+											"key": "filename",
+											"value": "test",
+											"type": "text",
+											"disabled": true
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/upload",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"upload"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:48:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "277"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 40,\n    \"created_at\": \"2025-08-12T12:48:19.755744+06:00\",\n    \"updated_at\": \"2025-08-12T12:48:19.755773+06:00\",\n    \"file\": \"/uploads/Aamarpay_Test_Docs.docx\",\n    \"filename\": \"Aamarpay Test Docs\",\n    \"status\": \"processing\",\n    \"word_count\": null,\n    \"upload_time\": \"2025-08-12T12:48:19.755405+06:00\",\n    \"user\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "File List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"files"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "File List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/files",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"files"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:33:14 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "355"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 39,\n            \"created_at\": \"2025-08-12T12:32:41.293055+06:00\",\n            \"updated_at\": \"2025-08-12T12:32:41.456927+06:00\",\n            \"file\": \"http://localhost:8000/uploads/Aamarpay_Test_Docs_17OvxmD.docx\",\n            \"filename\": \"Aamarpay Test Docs\",\n            \"status\": \"completed\",\n            \"word_count\": 83,\n            \"upload_time\": \"2025-08-12T12:32:41.292696+06:00\",\n            \"user\": 5\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Transaction List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Transaction List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"transactions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:33:31 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1382"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 9,\n            \"created_at\": \"2025-08-12T12:30:55.511190+06:00\",\n            \"updated_at\": \"2025-08-12T12:32:41.299210+06:00\",\n            \"transaction_id\": \"trn1754980255.236987\",\n            \"amount\": \"100.00\",\n            \"status\": \"success\",\n            \"can_upload_file\": false,\n            \"completed_at\": \"2025-08-12T12:31:36.094355+06:00\",\n            \"gateway_response\": {\n                \"opt_a\": \"\",\n                \"opt_b\": \"\",\n                \"opt_c\": \"\",\n                \"opt_d\": \"\",\n                \"amount\": \"100.00\",\n                \"reason\": \"Not Available\",\n                \"bank_txn\": \"1046439605352\",\n                \"currency\": \"BDT\",\n                \"cus_name\": \"merchant\",\n                \"fail_url\": \"http://localhost:8000/api/payment/failed\",\n                \"pay_time\": \"2025-08-12 12:31:36\",\n                \"pg_txnid\": \"AAM1754980256103436\",\n                \"store_id\": \"aamarpaytest\",\n                \"card_type\": \"bKash-bKash\",\n                \"cus_email\": \"merchant@gmail.com\",\n                \"cus_phone\": \"+8801708040602\",\n                \"epw_txnid\": \"AAM1754980256103436\",\n                \"mer_txnid\": \"trn1754980255.236987\",\n                \"ip_address\": \"103.111.225.210\",\n                \"pay_status\": \"Successful\",\n                \"card_holder\": \"\",\n                \"card_number\": \"1234XXXXXXXXX123\",\n                \"gateway_fee\": \"\",\n                \"merchant_id\": \"aamarpaytest\",\n                \"status_code\": \"2\",\n                \"success_url\": \"http://localhost:8000/api/payment/success\",\n                \"store_amount\": \"97.90\",\n                \"other_currency\": \"100.00\",\n                \"amount_currency\": \"100.00\",\n                \"amount_original\": \"100.00\",\n                \"convertion_rate\": \"\",\n                \"currency_merchant\": \"BDT\",\n                \"pg_card_bank_name\": \"Not Available\",\n                \"pg_card_risklevel\": \"0\",\n                \"pg_card_bank_country\": \"Not Available\",\n                \"pg_error_code_details\": \"Not Available\",\n                \"pg_service_charge_bdt\": \"2.10\",\n                \"pg_service_charge_usd\": \"Not-Available\"\n            },\n            \"user\": 5\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Activity Log",
+			"item": [
+				{
+					"name": "Activity List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/activity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"activity"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Activity List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/activity",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"activity"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 12 Aug 2025 06:33:55 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.23"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2548"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 4,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 53,\n            \"created_at\": \"2025-08-12T12:32:41.462737+06:00\",\n            \"updated_at\": \"2025-08-12T12:32:41.462794+06:00\",\n            \"action\": \"File Processed\",\n            \"description\": \"Processed file Aamarpay Test Docs and count word as well as update FileUpload model\",\n            \"metadata\": {\n                \"id\": 39,\n                \"status\": \"completed\",\n                \"filename\": \"Aamarpay Test Docs\",\n                \"file_path\": \"/app/uploads/Aamarpay_Test_Docs_17OvxmD.docx\",\n                \"word_count\": 83,\n                \"upload_time\": \"2025-08-12 06:32:41.292696+00:00\"\n            },\n            \"user\": 5\n        },\n        {\n            \"id\": 52,\n            \"created_at\": \"2025-08-12T12:32:41.302554+06:00\",\n            \"updated_at\": \"2025-08-12T12:32:41.302582+06:00\",\n            \"action\": \"File Upload\",\n            \"description\": \"File Aamarpay Test Docs uploaded after successful payment.\",\n            \"metadata\": {\n                \"status\": \"processing\",\n                \"filename\": \"Aamarpay Test Docs.docx\",\n                \"file_size\": 7268,\n                \"upload_time\": \"2025-08-12 06:32:41.292696+00:00\",\n                \"content_type\": \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\"\n            },\n            \"user\": 5\n        },\n        {\n            \"id\": 51,\n            \"created_at\": \"2025-08-12T12:31:36.099704+06:00\",\n            \"updated_at\": \"2025-08-12T12:31:36.099736+06:00\",\n            \"action\": \"Payment Successful\",\n            \"description\": \"Payment successful and transaction id trn1754980255.236987\",\n            \"metadata\": {\n                \"opt_a\": \"\",\n                \"opt_b\": \"\",\n                \"opt_c\": \"\",\n                \"opt_d\": \"\",\n                \"amount\": \"100.00\",\n                \"reason\": \"Not Available\",\n                \"bank_txn\": \"1046439605352\",\n                \"currency\": \"BDT\",\n                \"cus_name\": \"merchant\",\n                \"fail_url\": \"http://localhost:8000/api/payment/failed\",\n                \"pay_time\": \"2025-08-12 12:31:36\",\n                \"pg_txnid\": \"AAM1754980256103436\",\n                \"store_id\": \"aamarpaytest\",\n                \"card_type\": \"bKash-bKash\",\n                \"cus_email\": \"merchant@gmail.com\",\n                \"cus_phone\": \"+8801708040602\",\n                \"epw_txnid\": \"AAM1754980256103436\",\n                \"mer_txnid\": \"trn1754980255.236987\",\n                \"ip_address\": \"103.111.225.210\",\n                \"pay_status\": \"Successful\",\n                \"card_holder\": \"\",\n                \"card_number\": \"1234XXXXXXXXX123\",\n                \"gateway_fee\": \"\",\n                \"merchant_id\": \"aamarpaytest\",\n                \"status_code\": \"2\",\n                \"success_url\": \"http://localhost:8000/api/payment/success\",\n                \"store_amount\": \"97.90\",\n                \"other_currency\": \"100.00\",\n                \"amount_currency\": \"100.00\",\n                \"amount_original\": \"100.00\",\n                \"convertion_rate\": \"\",\n                \"currency_merchant\": \"BDT\",\n                \"pg_card_bank_name\": \"Not Available\",\n                \"pg_card_risklevel\": \"0\",\n                \"pg_card_bank_country\": \"Not Available\",\n                \"pg_error_code_details\": \"Not Available\",\n                \"pg_service_charge_bdt\": \"2.10\",\n                \"pg_service_charge_usd\": \"Not-Available\"\n            },\n            \"user\": 5\n        },\n        {\n            \"id\": 50,\n            \"created_at\": \"2025-08-12T12:30:55.518896+06:00\",\n            \"updated_at\": \"2025-08-12T12:30:55.518929+06:00\",\n            \"action\": \"Payment Initiate\",\n            \"description\": \"Payment initiated by merchant and transaction id trn1754980255.236987\",\n            \"metadata\": {\n                \"result\": \"true\",\n                \"payment_url\": \"https://sandbox.aamarpay.com/paynow.php?track=AAM1754980256103436\"\n            },\n            \"user\": 5\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"store_id\": \"aamarpaytest\",\n  \t\"tran_id\": \"heier8993872oiuriew\",\n  \t\"success_url\": \"http://www.merchantdomain.com/suc esspage.html\",\n  \t\"fail_url\": \"http://www.merchantdomain.com/faile dpage.html\",\n  \t\"cancel_url\": \"http://www.merchantdomain.com/can cellpage.html\",\n  \t\"amount\": \"10.0\",\n  \t\"currency\": \"BDT\",\n  \t\"signature_key\": \"dbb74894e82415a2f7ff0ec3a97e4183\",\n  \t\"desc\": \"Merchant Registration Payment\",\n  \t\"cus_name\": \"Name\",\n  \t\"cus_email\": \"payer@merchantcusomter.com\",\n  \t\"cus_add1\": \"House B-158 Road 22\",\n  \t\"cus_add2\": \"Mohakhali DOHS\",\n  \t\"cus_city\": \"Dhaka\",\n  \t\"cus_state\": \"Dhaka\",\n  \t\"cus_postcode\": \"1206\",\n  \t\"cus_country\": \"Bangladesh\",\n  \t\"cus_phone\": \"+8801704\",\n  \t\"type\": \"json\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://​sandbox​.aamarpay.com/jsonpost.php",
+					"protocol": "https",
+					"host": [
+						"​sandbox​",
+						"aamarpay",
+						"com"
+					],
+					"path": [
+						"jsonpost.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

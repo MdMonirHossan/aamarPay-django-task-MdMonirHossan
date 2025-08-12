@@ -135,6 +135,22 @@ $ python manage.py runserver
 ## Postman API collection available at
 **=> [Postman Collection](https://github.com/MdMonirHossan/aamarPay-django-task-MdMonirHossan/blob/main/Aamarpay.postman_collection.json)**
 
+## Postman Environment Variables available at
+**=> [Postman Collection](https://github.com/MdMonirHossan/aamarPay-django-task-MdMonirHossan/blob/main/Aamarpay.postman_environment.json)**
+
+
+## Testing the API with Postman
+
+This project includes a json files for **Postman collection** and **environment** .
+
+**Import Postman Collection & Environment files and test all API's** 
+
+## Test File Upload from Dashboard
+
+**The file upload form will be available only if the user has a successful payment and then the user can upload `.docx` or `.txt` file**
+
+`There will be an API named 'File Upload' in Postman collection. You can also test upload file functionality in there.`
+
 
 ## Payment Flow 
 - Uer initiate a payment to `aamarpay` sandbox.
