@@ -99,7 +99,7 @@ class InitiatePaymentView(views.APIView):
                     description = f"Payment initiated by {request.user} and transaction id {transaction_id}",
                     metadata=data
                 )
-                return Response({"payment_url": data.get('payment_url')})
+                return Response({"message": "Payment Initiated", "payment_url": data.get('payment_url'), "status": status.HTTP_200_OK})
             return Response({'error': 'Payment initiation failed'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'error': str(e)}, status=500)

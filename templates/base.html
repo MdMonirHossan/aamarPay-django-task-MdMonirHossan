@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,7 +13,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- bootstrap css -->
-     <!-- <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- font-awesome v4.6.3 css -->
     <!-- <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"> -->
@@ -21,22 +22,22 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 
-    <script type="text/javascript" ></script>
+    <script type="text/javascript"></script>
     <!-- Specific CSS goes HERE -->
     {% block stylesheets %}{% endblock stylesheets %}
 </head>
+
 <body>
-    
     <div class="">
         {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-              {{ message }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            {% endfor %}
+            </button>
+        </div>
+        {% endfor %}
         {% endif %}
     </div>
 
@@ -51,4 +52,5 @@
     {% block js %}
     {% endblock %}
 </body>
+
 </html>

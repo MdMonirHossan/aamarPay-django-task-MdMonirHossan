@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, signup, login, upload_file
+from .views import dashboard, signup, login, upload_file, log_out
 
 urlpatterns = [
     # Dashboard url
@@ -12,4 +12,5 @@ urlpatterns = [
     # User authentication urls
     path('signup', signup, name='signup'),
     path('login', login, name='login'),
+    path('logout', log_out, name='logout')
 ]

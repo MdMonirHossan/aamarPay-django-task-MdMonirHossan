@@ -36,6 +36,7 @@ def dashboard(request):
         'logs': activity_log,
         'can_upload': can_upload
     }
+    print('------- can upload ---- ', can_upload)
     return render(request, 'dashboard.html', context)
 
 
@@ -169,3 +170,14 @@ def login(request):
         'title': 'Sign In',
     }
     return render(request, 'login.html', context)
+
+def log_out(request):
+    """
+    This function is responsible for handling user log out functionality.
+    """
+    if request.user.is_authenticated:
+        auth.logout(request)
+        context = {}
+        messages.success(request, 'Successfully logged out.')
+        return render(request, 'login.html', context)
+    return redirect('login')

@@ -2,6 +2,21 @@
 {% load static %}
 {% block content %}
 
+<header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed">
+    <div class="m-header">
+        <img src="https://aamarpay.com/images/logo/aamarpay_logo.png" alt="" class="logo" style="max-width: 140px;">
+    </div>
+    <ul class="navbar-nav ml-auto">
+        <li>
+            <div class="dropdown drp-user">
+                <a href="{% url 'logout' %}">
+                    Log Out
+                </a>
+            </div>
+        </li>
+    </ul>
+</header>
+
 {% if can_upload %}
 <div class="row">
     <div class="col-md-4"></div>
@@ -30,7 +45,7 @@
         <div class="table-border-style m-3">
             <h5>Uploaded Files</h5>
             <div class="table-responsive">
-                <div class="customer-scroll" style="height:420px;position:relative;">
+                <div class="customer-scroll" style="max-height:420px;position:relative;">
                     <table class="table table-bordered table-hover " id="">
                         <thead>
                             <tr>
@@ -48,7 +63,21 @@
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ file.filename }}</td>
                                 <td style="word-break: break-word;">{{ file.file }}</td>
-                                <td>{{ file.status }}</td>
+                                <td>
+                                    <span class="status-badge
+                                            {% if file.status == 'completed' %}
+                                                status-success
+                                            {% elif file.status == 'failed' %}
+                                                status-failed
+                                            {% elif file.status == 'processing' %}
+                                                status-pending
+                                            {% else %}
+                                                status-other
+                                            {% endif %}"
+                                    >
+                                    {{ file.status }}
+                                </span>
+                                </td>
                                 <td>{{ file.word_count }}</td>
                                 <td>{{ file.upload_time }}</td>
                             </tr>
@@ -65,7 +94,7 @@
         <div class="table-border-style m-3">
             <h5>Payment History</h5>
             <div class="table-responsive">
-                <div class="customer-scroll" style="height:420px;position:relative;">
+                <div class="customer-scroll" style="max-height:420px;position:relative;">
                     <table class="table table-bordered table-hover " id="">
                         <thead>
                             <tr>
@@ -74,6 +103,7 @@
                                 <th>Amount</th>
                                 <th>Status</th>
                                 <th>Completed At</th>
+                                <th>Initiate At</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,8 +112,23 @@
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ payment.transaction_id }}</td>
                                 <td>{{ payment.amount }}</td>
-                                <td>{{ payment.status }}</td>
+                                <td>
+                                    <span class="status-badge
+                                            {% if payment.status == 'success' %}
+                                                status-success
+                                            {% elif payment.status == 'failed' %}
+                                                status-failed
+                                            {% elif payment.status == 'pending' %}
+                                                status-pending
+                                            {% else %}
+                                                status-other
+                                            {% endif %}"
+                                        >
+                                        {{payment.status }}
+                                    </span>
+                                </td>
                                 <td>{{ payment.completed_at }}</td>
+                                <td>{{ payment.created_at }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -98,7 +143,7 @@
         <div class="table-border-style m-3">
             <h5>Activity Logs</h5>
             <div class="table-responsive">
-                <div class="customer-scroll" style="height:420px;position:relative;">
+                <div class="customer-scroll" style="max-height:420px;position:relative;">
                     <table class="table table-bordered table-hover " id="">
                         <thead>
                             <tr>

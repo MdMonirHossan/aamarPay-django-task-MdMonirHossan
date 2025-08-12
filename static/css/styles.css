@@ -18,6 +18,10 @@ th {
   z-index: 1;
 }
 
+.navbar{
+  background-color: lightgray;
+}
+
 .upload-container {
     background-color: #fff;
     padding: 30px;
@@ -104,4 +108,28 @@ input[type="file"] {
 
 button[type="submit"]:hover {
     background-color: #0056b3;;
+}
+
+.status-badge {
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    text-transform: capitalize;
+}
+
+.status-success {
+    background-color: green;
+}
+
+.status-failed {
+    background-color: rgb(248, 126, 126);
+}
+
+.status-pending {
+    background-color: rgb(109, 106, 106);
+}
+
+
+.status-other {
+    background-color: rgb(212, 69, 69);
 }
