@@ -47,9 +47,17 @@ FAIL_URL=/api/payment/failed
 ```
 
 ## Running with Docker (No Configuration)
+
+#### 1. Run and Build the docker-compose file
 **Make sure docker is available in your system**
 ```bash
 $ docker-compose up --build
+```
+
+#### 2. Create Super User using docker-compose `exec`
+Provide `username`, `email` and `password`
+```bash
+$ docker-compose exec web python manage.py createsuperuser
 ```
 
 ## Running with Manual Configuration
@@ -77,6 +85,7 @@ $ python manage.py migrate
 ```
 
 #### 4. Create Superuser
+Provide `username`, `email` and `password`
 ```bash
 $ python manage.py createsuperuser
 ```
