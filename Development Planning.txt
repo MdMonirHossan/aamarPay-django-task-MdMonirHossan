@@ -1,0 +1,54 @@
+Development planning for PG and File Upload
+
+Section 1: Project Setup & Initial Configuration
+	- Setup virtual env & Install Depedencies
+	- Initialize djanog project
+	- Create & Setup new app
+	- Project Structure
+	- Database configuration (MySQL)
+	- Environment Variables
+	
+Section 2: Model Design & Admin
+	- FileUpload
+	- PaymentTransaction
+	- ActivityLog
+	- Customization for Super and Staff user access
+	
+Section 3: User Authentication & API Endpoints (DRF)
+	- Authentication
+	- Api endpoints (View)
+	- Sanbox Integration
+	- Payment initiate, Success Callback, Failed Callback.
+	- File upload enability
+	- URLs
+	- Api documentation (Swagger)
+	
+Section 4: Asynchronous Task wiht Celery and redis
+	- Celery setup
+	- Process file and Word count task implementation
+	
+Section 5: Frontend Development
+	- Dashboard page view
+	- Template Design (HTML, Bootstrap)
+	
+Section 6: Dockerization
+	- Dockerfile
+	- Docker Compose
+	
+Section 7: Add README
+	- Setup Instruction
+	- Api endpoints
+	- How to test
+	
+Section 8: Finishing
+	- Code Review
+	- Check Bugs
+	- Refactoring
+	- Code Documentation
+	- Test API's
+	
+
+	
+	
+	
+

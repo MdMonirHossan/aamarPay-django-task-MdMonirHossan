@@ -35,7 +35,7 @@ urlpatterns = [
     path('api/auth/token', TokenObtainPairView.as_view(), name='auth_token'),
     path('api/auth/refresh-token', TokenRefreshView.as_view(), name='auth_refresh_token'),
 
-     # Swagger UI urls
+    # Swagger UI urls
     path('api/swagger<format>', schema_view.without_ui(cache_timeout=0), name='schema_json'),
     path('api/swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema_swagger_ui'),
     path('api/redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema_redoc')
